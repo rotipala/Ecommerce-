@@ -16,16 +16,16 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'John Doe',
-                'email' => 'johndoe@mail.com',
+                'name' => 'User',
+                'email' => 'user@gmail.com',
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('Password1'),
                 'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             [
-                'name' => 'Jane Doe',
-                'email' => 'janedoe@mail.com',
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
                 'password' => Hash::make('Password1'),
                 'email_verified_at' => Carbon::now(),
                 'created_at' => Carbon::now(),
