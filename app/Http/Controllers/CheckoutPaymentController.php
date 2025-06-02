@@ -11,14 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class CheckoutPaymentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * This is the checkout functionality without strip
      */
+
     public function index($payment)
     {
-        // Get groups
+        // Checks to see if the user is loged in
         $group_ids = Auth::check() ? Auth::user()->getGroups() : [1];
 
-        // Get user
+        // Get user who is signed in
         $user = Auth::user();
 
         // create variables
@@ -28,7 +29,7 @@ class CheckoutPaymentController extends Controller
         $insert_data = [];
         $completed = false;
 
-        // get products
+        // get products the user has added to their cart
         $cart_data = $user->products()->withPrices()->get();
 
         // check if cart is empty
@@ -64,7 +65,7 @@ class CheckoutPaymentController extends Controller
             dd('Payment is incomplete or there is nothing in your cart');
         }
 
-        // Create order details
+        // Insert the basic information for an order
         $order->user_id = $user->id;
         $order->order_no = '123';
         $order->subtotal = $cart_data->getSubtotal();
@@ -77,6 +78,7 @@ class CheckoutPaymentController extends Controller
         $order->payment_status = 'unpaid';
         $order->save();
 
+        // Insert the products that the customer ordered
         $records = [];
         foreach ($cart_data as $data) {
             array_push(

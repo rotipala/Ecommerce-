@@ -14,14 +14,19 @@ class CartController extends Controller
      */
     public function index()
     {
+        //checks to see if the user is logged in
         $group_ids = Auth::check() ? Auth::user()->getGroups() : [1];
 
+        //gets who the user is
         $user = Auth::user();
 
+        //gets all the products that the user adds to the class
         $cart_data = $user->products()->withPrices()->get();
 
+        //gets the total price of all the products in the cart
         $cart_data->calculateSubtotal();
 
+        //returns the information to the front end
         return view('pages.default.cartpage', compact('cart_data'));
     }
 
