@@ -19,6 +19,6 @@ class ProductController extends Controller
         $product_data = Product::withPrices()->get();
 
         // takes the product information retrieved and passes it to the views or frontend
-        return view('pages.testing.productspage', compact('product_data'));
+        return view('pages.custom.productspage', compact('product_data'));
     }
 }
